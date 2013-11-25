@@ -1,0 +1,14 @@
+MyStr = Format(MyDate, "dddd, mmm d yyyy")    ' Returns "Wednesday,
+    ' Jan 27 1993".
+	
+	To format a cell as a date, try:
+
+Cells(!,2).NumberFormat = "mm/dd/yy"
+	
+	
+Range("A2").Offset(row_number, 7).FormulaR1C1 = "=Format(IF(RC[-6]=MEDIAN(RC[-6]," & "INT(RC[-6])+" & "'H:\Diggi Reports\[support values.xlsx]Constants'!R2C2," & "INT(RC[-6])+1)," & "RC[-1]," & "IF(RC[-6]=MEDIAN(RC[-6]," & "INT(RC[-6])," & "INT(RC[-6])+'H:\Diggi Reports\[support values.xlsx]Constants'!R3C2),RC[-1]," & "char(32))), 'mm/dd')"
+Range("A2").Offset(row_number, 7).FormulaR1C1 = "=IF(RC[-6]=MEDIAN(RC[-6]," & "INT(RC[-6])+" & "'H:\Diggi Reports\[support values.xlsx]Constants'!R2C2," & "INT(RC[-6])+1)," & "RC[-1]," & "IF(RC[-6]=MEDIAN(RC[-6]," & "INT(RC[-6])," & "INT(RC[-6])+'H:\Diggi Reports\[support values.xlsx]Constants'!R3C2),RC[-1]," & "char(32)))"
+
+Dim postDate As String
+postDate= FormulaR1C1("=IF(RC[-6]=MEDIAN(RC[-6]," & "INT(RC[-6])+" & "'H:\Diggi Reports\[support values.xlsx]Constants'!R2C2," & "INT(RC[-6])+1)," & "RC[-1]," & "IF(RC[-6]=MEDIAN(RC[-6]," & "INT(RC[-6])," & "INT(RC[-6])+'H:\Diggi Reports\[support values.xlsx]Constants'!R3C2),RC[-1]," & "char(32)))")
+Range("A2").Offset(row_number, 7) = Format(postDate, "mm/dd")

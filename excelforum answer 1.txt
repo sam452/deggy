@@ -1,0 +1,34 @@
+Option Explicit
+
+Sub sTest()
+
+Dim row_number As Long
+row_number = 8
+
+Range("A1").Select  ' for testing
+
+ActiveCell.Offset(row_number, 7).FormulaR1C1 = _
+    "=IF(RC[-6]=MEDIAN(RC[-6]," & _
+    "INT(RC[-6])+" & _
+    "'H:\Diggi Reports\[support values.xlsx]Constants'!R2C2," & _
+    "INT(RC[-6])+1)," & _
+    "RC[-1]," & _
+    "IF(RC[-6]=MEDIAN(RC[-6]," & _
+    "INT(RC[-6])," & _
+    "INT(RC[-6])+'H:\Diggi Reports\[support values.xlsx]Constants'!R3C2),RC[-1]," & _
+    "char(32)))"
+
+ActiveCell.Offset(row_number, 7).FormulaR1C1 = _
+    "=IF(RC[-6]=MEDIAN(RC[-6],INT(RC[-6])+'H:\Diggi Reports\[support values.xlsx]Constants'!R2C2,INT(RC[-6])+1),RC[-1],IF(RC[-6]=MEDIAN(RC[-6],INT(RC[-6]),INT(RC[-6])+'H:\Diggi Reports\[support values.xlsx]Constants'!R3C2),RC[-1],char(32)))"
+
+' or
+Range("A1").Offset(row_number, 7).FormulaR1C1 = _
+    "=IF(RC[-6]=MEDIAN(RC[-6],INT(RC[-6])+'H:\Diggi Reports\[support values.xlsx]Constants'!R2C2,INT(RC[-6])+1),RC[-1],IF(RC[-6]=MEDIAN(RC[-6],INT(RC[-6]),INT(RC[-6])+'H:\Diggi Reports\[support values.xlsx]Constants'!R3C2),RC[-1],char(32)))"
+
+' cell H9 gets:
+'=IF(B9=MEDIAN(B9,INT(B9)+'H:\Diggi Reports\[support values.xlsx]Constants'!$B$2,INT(B9)+1),G9,IF(B9=MEDIAN(B9,INT(B9),INT(B9)+'H:\Diggi Reports\[support values.xlsx]Constants'!$B$3),G9,CHAR(32)))
+
+' so ...
+Range("H9").Formula = "=IF(B9=MEDIAN(B9,INT(B9)+'H:\Diggi Reports\[support values.xlsx]Constants'!$B$2,INT(B9)+1),G9,IF(B9=MEDIAN(B9,INT(B9),INT(B9)+'H:\Diggi Reports\[support values.xlsx]Constants'!$B$3),G9,CHAR(32)))"
+
+End Sub

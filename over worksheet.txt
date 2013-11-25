@@ -1,0 +1,46 @@
+=IF((AND(H2,NOT(H2=" "))),
+  (IF(
+    (AND
+	  (E2>'H:\Diggi Reports\[support values.xlsx]Constants'!$B$1 + 0.0007,
+	  E2<'H:\Diggi Reports\[support values.xlsx]Constants'!$B$4)
+	),E2," ")
+	  ),"empty")
+	  
+=IF((AND(RC[-1],NOT(RC[-1]=CHAR(32)))),
+  (IF(
+    (AND
+	  (RC[-3]>'H:\Diggi Reports\[support values.xlsx]Constants'!R1C2 + 0.0007,
+	  RC[-3]<'H:\Diggi Reports\[support values.xlsx]Constants'!R4C2)
+	 ), RC[-3], CHAR(32))
+	 ), 'empty')
+	 
+Range("A2").Offset(row_number, 8).FormulaR1C1 = 
+	 "=IF((AND(RC[-1],NOT(RC[-1]=CHAR(32)))),(IF((AND(RC[-3]>'H:\Diggi Reports\[support values.xlsx]Constants'!R1C2 + 0.0007,RC[-3]<'H:\Diggi Reports\[support values.xlsx]Constants'!R4C2)), RC[-3], CHAR(32))), 'empty')"
+
+Range("A2").Offset(row_number, 8).FormulaR1C1 = _
+"=IF((AND(RC[-1],NOT(RC[-1]=CHAR(32))))," & _
+"(IF((AND(RC[-4]>" & _
+"'H:\Diggi Reports\[support values.xlsx]Constants'!R1C2 + 0.0007," & _
+"RC[-4]<'H:\Diggi Reports\[support values.xlsx]Constants'!R4C2))" & _
+", RC[-4]," & _
+"CHAR(32)))," & _
+"CHAR(99)"
+
+Range("A2").Offset(row_number, 8).FormulaR1C1 = _
+"=IF((AND(RC[-1],NOT(RC[-1]=CHAR(32))))," & _
+"(IF((AND(RC[-4]>" & _
+"'H:\Diggi Reports\[support values.xlsx]Constants'!R1C2 + 0.0007," & _
+"RC[-4]<'H:\Diggi Reports\[support values.xlsx]Constants'!R4C2))" & _
+", RC[-4]," & _
+"CHAR(32)))," & _
+"CHAR(101)&CHAR(109)&CHAR(112)&CHAR(116)&CHAR(121))"
+
+this works w/o outer IF:
+Range("A2").Offset(row_number, 8).FormulaR1C1 = _
+"=(IF((AND(RC[-4]>" & _
+"'H:\Diggi Reports\[support values.xlsx]Constants'!R1C2 + 0.0007," & _
+"RC[-4]<'H:\Diggi Reports\[support values.xlsx]Constants'!R4C2))" & _
+", RC[-4]," & _
+"CHAR(99))"
+
+WORKS when I add last parens!!!!
