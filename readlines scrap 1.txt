@@ -1,0 +1,22 @@
+# Get `line` in the right scope.
+line = nil
+
+# Eat up `f` until we find the line we're looking for
+# but keep track of `line` for use below.
+while(line = f.gets)
+    break if(line =~ /#{timeStr}/)
+end
+
+# If we found the line we're looking for then get to work...
+if(line)
+    # Grab the rest of the file
+    the_rest = f.readlines
+    # Prepend the matching line to the rest of the file
+    the_rest.unshift(line)
+    # And write it out.
+    File.open(path + "\\logs\\messages1.log","a") do |file1|
+        file1.puts(the_rest)
+    end
+end
+
+line_number = 0

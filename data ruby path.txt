@@ -1,0 +1,5 @@
+f = File.new("H:\Diggi Reports\\data.txt")
+num_newlines = 0
+while (c = f.getc) != nil
+  num_newlines += 1 if c == "\r\n"
+end

@@ -1,0 +1,6 @@
+"C:\Program Files\PuTTY\pageant.exe" C:\"Documents and Settings"\sam.walton\.ssh\mine.ppk
+
+
+C:\Documents and Settings\sam.walton\My Documents\work\prawn
+
+"C:/Documents and Settings/sam.walton/My Documents/work/prawn/gw_name_badges_m.pdf"
