@@ -13,17 +13,18 @@ begin
     end
   end
   temp_file.rewind
-FileUtils.cp(temp_file.path, "H:/Diggi Reports/flash.txt")
-#File.open("H:/Diggi Reports/flash.txt", "w") do |out_file|
- # File.foreach(temp_file).each_with_index { |my_line, i|
-  #  out_file.puts my_line unless i < LINE_MAX }
+  
+#FileUtils.cp(temp_file.path, "H:/Diggi Reports/flash.txt")
+File.open("H:/Diggi Reports/flash.txt", "w") do |out_file|
+  File.foreach(temp_file).each_with_index { |my_line, i|
+    out_file.puts my_line unless i < LINE_MAX } #(LINE_MAX - line_counter)
 	#end
-#end
+end
 ensure
   temp_file.close
   temp_file.unlink
 end 
-line_counter
+puts line_counter
 
 
 

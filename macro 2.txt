@@ -1,0 +1,55 @@
+Sub Macro2()
+'
+' Macro2 Macro
+'
+
+'
+    Sheets.Add
+    ActiveWorkbook.PivotCaches.Create(SourceType:=xlDatabase, SourceData:= _
+        "Sheet1!R1C1:R2024C9", Version:=xlPivotTableVersion14).CreatePivotTable _
+        TableDestination:="Sheet7!R1C1", TableName:="PivotTable1", DefaultVersion _
+        :=xlPivotTableVersion14
+    Sheets("Sheet7").Select
+    Cells(1, 1).Select
+    ActiveSheet.Shapes.AddChart.Select
+    ActiveChart.ChartType = xlColumnClustered
+    ActiveChart.SetSourceData Source:=Range("Sheet7!$A$1:$C$18")
+    ActiveSheet.Shapes("Chart 1").IncrementLeft 192
+    ActiveSheet.Shapes("Chart 1").IncrementTop 15
+    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Name")
+        .Orientation = xlRowField
+        .Position = 1
+    End With
+    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Date")
+        .Orientation = xlRowField
+        .Position = 2
+    End With
+    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Over")
+        .Orientation = xlRowField
+        .Position = 3
+    End With
+    ActiveSheet.PivotTables("PivotTable1").AddDataField ActiveSheet.PivotTables( _
+        "PivotTable1").PivotFields("Over"), "Count of Over", xlCount
+    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Count of Over")
+        .Caption = "Sum of Over"
+        .Function = xlSum
+    End With
+    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Date")
+        .PivotItems(" ").Visible = False
+        .PivotItems("11/23/2013").Visible = False
+        .PivotItems("11/24/2013").Visible = False
+        .PivotItems("11/25/2013").Visible = False
+        .PivotItems("11/26/2013").Visible = False
+        .PivotItems("11/27/2013").Visible = False
+    End With
+    Range("B2:B20").Select
+    Selection.NumberFormat = "h:mm;@"
+    ActiveSheet.ChartObjects("Chart 1").Activate
+    ActiveSheet.Shapes("Chart 1").IncrementLeft -72.75
+    ActiveSheet.Shapes("Chart 1").IncrementTop -2.25
+    ActiveSheet.ChartObjects("Chart 1").Activate
+    ActiveSheet.Shapes("Chart 1").ScaleWidth 1.7013888889, msoFalse, _
+        msoScaleFromTopLeft
+    ActiveSheet.Shapes("Chart 1").ScaleHeight 1.7013888889, msoFalse, _
+        msoScaleFromTopLeft
+End Sub
