@@ -1,0 +1,36 @@
+Public Sub impCSV()
+Dim FilePath As String
+
+FilePath = "H:\Diggi Reports\flash.txt"
+Open FilePath For Input As #1
+row_number = 0
+Range("A2").Select
+Do Until EOF(1)
+Line Input #1, LineFromFile
+LineItems = Split(LineFromFile, ",")
+Range("A2").Offset(row_number, 0).Value = LineItems(2)
+Range("A2").Offset(row_number, 1).Value = LineItems(0)
+Range("A2").Offset(row_number, 2).Value = LineItems(1)
+Range("A2").Offset(row_number, 4).FormulaR1C1 = "=RC[-3]-R[-1]C[-3]"
+Range("A2").Offset(row_number, 5).FormulaArray = "=INDEX('H:\Diggi Reports\[support values.xlsx]Assignments'!R2C3:R1006C3,RC[+6])"
+Range("A2").Offset(row_number, 6).FormulaR1C1 = "=IF(RC[-5]= RC[+4], INT(RC[-5]+1), INT(RC[-5]))"
+Range("A2").Offset(row_number, 7).FormulaR1C1 = "=IF(RC[-6]=MEDIAN(RC[-6]," & "INT(RC[-6])+" & "'H:\Diggi Reports\[support values.xlsx]Constants'!R2C2," & "INT(RC[-6])+1)," & "RC[-1]," & "IF(RC[-6]=MEDIAN(RC[-6]," & "INT(RC[-6])," & "INT(RC[-6])+'H:\Diggi Reports\[support values.xlsx]Constants'!R3C2),RC[-1]," & "char(32)))"
+Range("A2").Offset(row_number, 8).FormulaR1C1 = _
+"=IF((AND(RC[-1],NOT(RC[-1]=CHAR(32))))," & _
+"(IF((AND(RC[-4]>" & _
+"'H:\Diggi Reports\[support values.xlsx]Constants'!R1C2 + 0.0007," & _
+"RC[-4]<'H:\Diggi Reports\[support values.xlsx]Constants'!R4C2))" & _
+", RC[-4]," & _
+"CHAR(32)))," & _
+"CHAR(101)& CHAR(109)& CHAR(112)& CHAR(116)& CHAR(121))"
+Range("A2").Offset(row_number, 10).FormulaR1C1 = "=MEDIAN(RC[-9], INT(RC[-9])+'H:\Diggi Reports\[support values.xlsx]Constants'!R2C2, INT(RC[-9])+1)"
+Range("A2").Offset(row_number, 11).FormulaArray = "=MATCH((RC[-5])&RC[-11],'H:\Diggi Reports\[support values.xlsx]Assignments'!R2C1:R1006C1&'H:\Diggi Reports\[support values.xlsx]Assignments'!R2c2:R1006C2, 0)"
+Range("A2").Offset(row_number, 4).NumberFormat = "hh:mm"
+Range("A2").Offset(row_number, 7).NumberFormat = "mm/dd"
+
+Range("A2").Offset(row_number, 8).NumberFormat = "hh:mm"
+row_number = row_number + 1
+
+Loop
+Close #1
+End Sub

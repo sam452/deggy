@@ -1,6 +1,6 @@
 require 'tempfile'
 
-LINE_MAX = 3000
+LINE_MAX = 1500
 temp_file = Tempfile.new('foo')
 line_counter = 0
 begin
@@ -13,11 +13,11 @@ begin
     end
   end
   temp_file.rewind
-  
+  older_files = line_counter - LINE_MAX
 #FileUtils.cp(temp_file.path, "H:/Diggi Reports/flash.txt")
 File.open("H:/Diggi Reports/flash.txt", "w") do |out_file|
   File.foreach(temp_file).each_with_index { |my_line, i|
-    out_file.puts my_line unless i < LINE_MAX } #(LINE_MAX - line_counter)
+    out_file.puts my_line unless i < older_files } #(LINE_MAX - line_counter)
 	#end
 end
 ensure

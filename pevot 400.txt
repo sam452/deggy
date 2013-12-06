@@ -1,16 +1,26 @@
 Public Sub pevot()
-Dim pt As PivotTable, pf As PivotField, pi As PivotItem
+Dim pt As PivotTable, pf As PivotField, pi As PivotItem, original_sheet as Worksheet
+Dim LDate As String
+LDate = Date
 On Error GoTo Errhandler
+Range("K1").Offset(row_number, 0).Value = Date
+Range("K1").Offset(row_number, 1).Value = Date - 1
+Range("K1").Offset(row_number, 2).Value = Date - 2
+Range("K1").Offset(row_number, 3).Value = Date - 3
+Range("K1").Offset(row_number, 4).Value = Date - 4
+Range("K1").Offset(row_number, 5).Value = Date - 5
+Range("K1").Offset(row_number, 6).Value = Date - 6
+
 Sheets.Add
     ThisWorkbook.PivotCaches.Create(SourceType:=xlDatabase, SourceData:= _
-        "Sheet1!R1C1:R3000C11", Version:=xlPivotTableVersion14).CreatePivotTable _
+        "Sheet1!R1C1:R3000C9", Version:=xlPivotTableVersion14).CreatePivotTable _
         TableDestination:="Sheet4!R1C1", TableName:="PivotTable1", DefaultVersion _
         :=xlPivotTableVersion14
     Sheets("Sheet4").Select
     Cells(1, 1).Select
     ActiveSheet.Shapes.AddChart.Select
     ActiveChart.ChartType = xlColumnClustered
-    ActiveChart.SetSourceData Source:=Range("Sheet4!$A$1:$C$50")
+    ActiveChart.SetSourceData Source:=Range("Sheet4!$A$1:$C$18")
     ActiveSheet.Shapes("Chart 1").IncrementLeft 192
     ActiveSheet.Shapes("Chart 1").IncrementTop 15
     ActiveChart.ClearToMatchStyle
@@ -34,35 +44,20 @@ Sheets.Add
         .Caption = "Sum of Overs"
         .Function = xlSum
     End With
-    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Date")
-        .PivotItems(" ").Visible = False
-        .PivotItems("10/25/2013").Visible = False
-        .PivotItems("10/26/2013").Visible = False
-        .PivotItems("10/27/2013").Visible = False
-        .PivotItems("10/29/2013").Visible = False
-        .PivotItems("10/30/2013").Visible = False
-        .PivotItems("10/31/2013").Visible = False
-        .PivotItems("11/1/2013").Visible = False
-        .PivotItems("11/2/2013").Visible = False
-        .PivotItems("11/3/2013").Visible = False
-        .PivotItems("11/4/2013").Visible = False
-        .PivotItems("11/5/2013").Visible = False
-        .PivotItems("11/6/2013").Visible = False
-        .PivotItems("11/7/2013").Visible = False
-        .PivotItems("11/8/2013").Visible = False
-        .PivotItems("11/9/2013").Visible = False
-        .PivotItems("11/10/2013").Visible = False
-        .PivotItems("11/11/2013").Visible = False
-        .PivotItems("11/12/2013").Visible = False
-        .PivotItems("11/13/2013").Visible = False
-        .PivotItems("11/14/2013").Visible = False
-        .PivotItems("11/15/2013").Visible = False
-        .PivotItems("11/16/2013").Visible = False
-        .PivotItems("11/17/2013").Visible = False
-        .PivotItems("11/18/2013").Visible = False
-        .PivotItems("11/19/2013").Visible = False
-        .PivotItems("11/20/2013").Visible = False
-    End With
+	Set original_sheet = Worksheets("Sheet1")
+	Set ws = ActiveSheet
+	On Error Resume Next
+	Set pt = ws.PivotTables("PivotTable1")
+	On Error GoTo 0
+	If Not pt Is Nothing Then
+	pt.ManualUpdate = True
+	  Set pf = pt.PivotFields("Date")
+	    For Each pi In pf.PivotItems
+		pi.Visible = Not original_sheet.Range("K1:Q1").Find(DateValue(pi.Value), , xlWhole) Is Nothing
+		Next pi
+		pt.ManualUpdate = False
+	End If	
+    
     With ActiveSheet.PivotTables("PivotTable1").PivotFields("Name")
         .PivotItems("#N/A").Visible = False
     End With

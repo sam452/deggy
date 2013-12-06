@@ -3,3 +3,37 @@ num_newlines = 0
 while (c = f.getc) != nil
   num_newlines += 1 if c == "\r\n"
 end
+
+f = File.new("H:\\Diggi Reports\\data.txt")
+
+IO.foreach("H:\Diggi Reports\\data.txt") {|line| print "GOT ", line }
+
+LINE_MAX = 3000
+for each line is file copy line to target if \Guard\
+if line_count > LINE_MAX, delete line 1 of target
+
+FileUtils.mv('C:/Documents and Settings/sam.walton/Desktop/new.txt', 'C:/Documents and Settings/sam.walton/Desktop/old.txt')
+
+
+require 'tempfile'
+require 'fileutils'
+
+path = '/tmp/foo'
+temp_file = Tempfile.new('foo')
+line_counter = 0
+begin
+  File.open("H:/Diggi Reports/data.txt", 'r') do |file|
+    file.each_line do |line|
+      if line.match /Guard/
+	    temp_file.write line
+		line_counter += 1
+	  end
+    end
+  end
+  temp_file.rewind
+  FileUtils.mv(temp_file.path, "H:/Diggi Reports/flash.txt")
+ensure
+  temp_file.close
+  temp_file.unlink
+end 
+line_counter
