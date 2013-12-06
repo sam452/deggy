@@ -1,12 +1,19 @@
-Sub Macro1()
-'
-' Macro1 Macro
-'
+Public Sub pevot()
+Dim pt As PivotTable, pf As PivotField, pi As PivotItem, original_sheet As Worksheet
+Dim LDate As String, myLoop As Long, myCounter As Long
+LDate = Date
+On Error GoTo Errhandler
+Range("K1").Offset(row_number, 0).Value = Date
+Range("K1").Offset(row_number, 1).Value = Date - 1
+Range("K1").Offset(row_number, 2).Value = Date - 2
+Range("K1").Offset(row_number, 3).Value = Date - 3
+Range("K1").Offset(row_number, 4).Value = Date - 4
+Range("K1").Offset(row_number, 5).Value = Date - 5
+Range("K1").Offset(row_number, 6).Value = Date - 6
 
-'
-    Sheets.Add
-    ActiveWorkbook.PivotCaches.Create(SourceType:=xlDatabase, SourceData:= _
-        "Sheet1!R1C1:R5275C11", Version:=xlPivotTableVersion14).CreatePivotTable _
+Sheets.Add
+    ThisWorkbook.PivotCaches.Create(SourceType:=xlDatabase, SourceData:= _
+        "Sheet1!R1C1:R3000C9", Version:=xlPivotTableVersion14).CreatePivotTable _
         TableDestination:="Sheet4!R1C1", TableName:="PivotTable1", DefaultVersion _
         :=xlPivotTableVersion14
     Sheets("Sheet4").Select
@@ -34,42 +41,45 @@ Sub Macro1()
     ActiveSheet.PivotTables("PivotTable1").AddDataField ActiveSheet.PivotTables( _
         "PivotTable1").PivotFields("Over"), "Count of Over", xlCount
     With ActiveSheet.PivotTables("PivotTable1").PivotFields("Count of Over")
-        .Caption = "Sum of Over"
+        .Caption = "Sum of Overs"
         .Function = xlSum
     End With
-    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Date")
-        .PivotItems(" ").Visible = False
-        .PivotItems("10/25/2013").Visible = False
-        .PivotItems("10/26/2013").Visible = False
-        .PivotItems("10/27/2013").Visible = False
-        .PivotItems("10/29/2013").Visible = False
-        .PivotItems("10/30/2013").Visible = False
-        .PivotItems("10/31/2013").Visible = False
-        .PivotItems("11/1/2013").Visible = False
-        .PivotItems("11/2/2013").Visible = False
-        .PivotItems("11/3/2013").Visible = False
-        .PivotItems("11/4/2013").Visible = False
-        .PivotItems("11/5/2013").Visible = False
-        .PivotItems("11/6/2013").Visible = False
-        .PivotItems("11/7/2013").Visible = False
-        .PivotItems("11/8/2013").Visible = False
-        .PivotItems("11/9/2013").Visible = False
-        .PivotItems("11/10/2013").Visible = False
-        .PivotItems("11/11/2013").Visible = False
-        .PivotItems("11/12/2013").Visible = False
-        .PivotItems("11/13/2013").Visible = False
-        .PivotItems("11/14/2013").Visible = False
-        .PivotItems("11/15/2013").Visible = False
-        .PivotItems("11/16/2013").Visible = False
-        .PivotItems("11/17/2013").Visible = False
-        .PivotItems("11/18/2013").Visible = False
-        .PivotItems("11/19/2013").Visible = False
-        .PivotItems("11/20/2013").Visible = False
+    Set original_sheet = Worksheets("Sheet1")
+    Set ws = ActiveSheet
+    On Error Resume Next
+    Set pt = ws.PivotTables("PivotTable1")
+    Set amy = original_sheet.Range("K1")
+    
+    Application.ScreenUpdating = False
+    For Each pi In pt.PivotFields("Date").PivotItems
+      pi.Visible = False
+    Next pi
+    
+    With pt.PivotFields("Date")
+      For myLoop = .PivotItems.Count To 1 Step -1
+        .PivotItems(myLoop).Visible = True
+        myCounter = myCounter + 1
+        If myCounter = 8 Then Exit For
+      Next myLoop
     End With
-    With ActiveSheet.PivotTables("PivotTable1").PivotFields("Name")
+    
+    With pt.PivotFields("Date")
+      .PivotItems(" ").Visible = False
+      .PivotItems("(Blank)").Visible = False
+    End With
+    
+    
+    
+    With pt.PivotFields("Name")
+      On Error Resume Next
         .PivotItems("#N/A").Visible = False
+        .PivotItems("(Blank)").Visible = False
     End With
-    Range("B2:B23").Select
+    
+    On Error GoTo 0
+    Application.ScreenUpdating = True
+    
+    Range("B2:B50").Select
     Selection.NumberFormat = "h:mm;@"
     ActiveSheet.ChartObjects("Chart 1").Activate
     ActiveSheet.Shapes("Chart 1").IncrementLeft -81.75
@@ -78,5 +88,7 @@ Sub Macro1()
     ActiveSheet.Shapes("Chart 1").ScaleWidth 1.8125, msoFalse, msoScaleFromTopLeft
     ActiveSheet.Shapes("Chart 1").ScaleHeight 1.8125, msoFalse, msoScaleFromTopLeft
     ActiveSheet.ChartObjects("Chart 1").Activate
-    Application.Goto Reference:="Macro1"
+Exit Sub
+Errhandler:
+MsgBox Err.Description
 End Sub
