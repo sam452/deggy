@@ -49,10 +49,13 @@ Sheets.Add
 	On Error Resume Next
 	Set pt = ws.PivotTables("PivotTable1")
 	On Error GoTo 0
+	Set amy = original_sheet.Range("K1")
+	
 	If Not pt Is Nothing Then
 	pt.ManualUpdate = True
 	  Set pf = pt.PivotFields("Date")
 	    For Each pi In pf.PivotItems
+		MsgBox "The selection object type is " & TypeName(amy) & " | pi = " & TypeName(pi)
 		pi.Visible = Not original_sheet.Range("K1:Q1").Find(DateValue(pi.Value), , xlWhole) Is Nothing
 		Next pi
 		pt.ManualUpdate = False

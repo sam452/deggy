@@ -1,6 +1,6 @@
 require 'tempfile'
 
-LINE_MAX = 1500
+LINE_MAX = ARGV[0].to_i
 temp_file = Tempfile.new('foo')
 line_counter = 0
 begin
@@ -24,7 +24,7 @@ ensure
   temp_file.close
   temp_file.unlink
 end 
-puts line_counter
+puts LINE_MAX
 
 
 
