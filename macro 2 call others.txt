@@ -2,7 +2,7 @@ Sub BigMacro()
 Dim time1, time2
 time1 = Now
 time2 = Now + TimeValue("0:00:04")
-Call TryShell
+
   Do Until time1 >= time2
         DoEvents
         time1 = Now()
