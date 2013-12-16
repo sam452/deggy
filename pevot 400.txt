@@ -3,13 +3,6 @@ Dim pt As PivotTable, pf As PivotField, pi As PivotItem, original_sheet as Works
 Dim LDate As String
 LDate = Date
 On Error GoTo Errhandler
-Range("K1").Offset(row_number, 0).Value = Date
-Range("K1").Offset(row_number, 1).Value = Date - 1
-Range("K1").Offset(row_number, 2).Value = Date - 2
-Range("K1").Offset(row_number, 3).Value = Date - 3
-Range("K1").Offset(row_number, 4).Value = Date - 4
-Range("K1").Offset(row_number, 5).Value = Date - 5
-Range("K1").Offset(row_number, 6).Value = Date - 6
 
 Sheets.Add
     ThisWorkbook.PivotCaches.Create(SourceType:=xlDatabase, SourceData:= _
