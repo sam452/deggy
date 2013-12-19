@@ -1,0 +1,1 @@
+java -cp /path/to.../Multivalent.jar tool.pdf.Impose -dim 4x2 -paper 84.1x59.4cm file.pdf
