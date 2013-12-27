@@ -1,0 +1,10 @@
+java -cp /path/to.../Multivalent.jar tool.pdf.Impose -dim 4x2 -paper 84.1x59.4cm file.pdf
+
+java -cp /path/to.../Multivalent.jar tool.pdf.Impose -dim 1x1  -paper 14x19.8cm GJP_Koledar_2013_2014_publikacija.pdf
+
+java -cp /path/to.../Multivalent.jar tool.pdf.Impose -dim 6x2  -paper 84.1x39.6 cm 14x19.8.pdf
+
+C:\"Documents and Settings\sam.walton\My Documents\Downloads"
+'added ampersand.
+
+java -cp &"C:\Documents and Settings\sam.walton\My Documents\Downloads\Multivalent.jar" tool.pdf.Impose -dim 2x2 -paper 84.1x59.4cm &"C:\Documents and Settings\sam.walton\My Documents\work\prawn\gw_name_badges_m-bup.pdf"
