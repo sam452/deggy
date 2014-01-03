@@ -10,3 +10,20 @@ page.css('div#content div#bodyContent table.infobox tr th').each do |el|
    puts el.text
    
 doc.css('div.mainbluebox h1.whitetext')
+
+schtasks /create /tn TaskName /tr TaskRun /sc schedule [/mo modifier] [/d day] [/m month[,month...] [/i IdleTime] [/st StartTime] [/sd StartDate] [/ed EndDate] [/s computer [/u [domain\]user /p password]] [/ru {[Domain\]User | "System"} [/rp Password]] /? 
+
+
+'C:\Documents and Settings\sam.walton\My Documents\work\deggy reports\oGW1.bat>>ralph.txt'
+\\127.0.0.1\\'Documents and Settings\sam.walton\My Documents\work\deggy reports\oGW1.bat>>ralph.txt'
+
+SCHTASKS /CREATE /TN "TASK1" /TR "\"C:\Program_Files\Spybot - Search ^& Destroy\SpybotSD.exe\"
+ \AUTOCHECK \AUTOFIX \AUTOCLOSE" /ST 01:00:00 /SC Daily /RU MyUser /RP MyPass  
+
+
+schtasks /create /tn MyOGW /tr C:\"Documents and Settings"\sam.walton\"My Documents"\work\"deggy reports"\oGW1.bat>>ralph.txt /sc minute /mo 5 
+schtasks /create /tn MyOGW /tr "\"C:\Documents and Settings\sam.walton\My Documents\work\deggy reports\oGW1.bat>>ralph.txt\"" /sc minute /mo 5
+"Documents and Settings"\sam.walton\"My Documents"\work\"deggy reports"\oGW1.bat>>ralph.txt /sc minute /mo 5 
+
+
+
