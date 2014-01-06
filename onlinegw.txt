@@ -22,8 +22,11 @@ SCHTASKS /CREATE /TN "TASK1" /TR "\"C:\Program_Files\Spybot - Search ^& Destroy\
 
 
 schtasks /create /tn MyOGW /tr C:\"Documents and Settings"\sam.walton\"My Documents"\work\"deggy reports"\oGW1.bat>>ralph.txt /sc minute /mo 5 
-schtasks /create /tn MyOGW /tr "\"C:\Documents and Settings\sam.walton\My Documents\work\deggy reports\oGW1.bat>>ralph.txt\"" /sc minute /mo 5
+schtasks /create /tn MyOGW /tr "\"C:\Documents and Settings\sam.walton\My Documents\work\deggy reports\ruby onlineGW.rb\"" /sc minute /mo 5
 "Documents and Settings"\sam.walton\"My Documents"\work\"deggy reports"\oGW1.bat>>ralph.txt /sc minute /mo 5 
+
+schtasks /change /tn MyOGW /sc minute /mo 15
+
 
 
 
