@@ -1,0 +1,5 @@
+first_name =PROPER(LEFT(A2,FIND(",",A2)-1))
+
+last_name = PROPER(RIGHT(A2,LEN(A2)-(FIND(",",A2)+1)))
+
+store# = =MID(B2,FIND("/",B2,FIND("/",B2)+1)+1,3)
